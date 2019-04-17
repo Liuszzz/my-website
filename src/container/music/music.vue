@@ -1,24 +1,15 @@
 <template>
 	<div class="music">
 		<div class="content clear">
-			<div class="left-content fl">
-				<ul>
-					<li>我的歌手（{{subCount.artistCount}}）</li>
-					<li>我的视频（{{subCount.mvCount}}）</li>
-					<li>我的电台（{{subCount.djRadioCount}}）</li>
-					<li>创建的歌单（{{subCount.createdPlaylistCount}}）</li>
-					<li>收藏的歌单（{{subCount.subPlaylistCount}}）</li>
-				</ul>
-			</div>
+			<LeftContent :subCount="subCount"
+			             :favoriteList="favoriteList"
+			             :createdList="createdList"
+			             @playListDetail="getPlayListDetail">
+			</LeftContent>
 			<div class="right-content fr">
-				<ul class="rec-list-box clear">
-					<li class="rec-list-item fl"
-					    v-for="(item, index) in recSongList"
-					    v-show="index < 8"
-					    :key="item.id">
-						<img :src="item.picUrl" />
-					</li>
-				</ul>
+				<ListDeatil :listDetail="listDetail">
+
+				</ListDeatil>
 			</div>
 		</div>
 		<div class="music-bar"></div>
@@ -27,24 +18,66 @@
 
 <script>
 	import Api from '@/api';
+	import COMMONJS from '@/assets/js/common.js';
+	import LeftContent from './components/leftContent.vue';
+	import ListDeatil from './components/listDetail.vue';
 
 	export default {
 		data() {
 			return {
 				recSongList: [],
-				subCount: {}
+				subCount: {},
+				userInfo: this.$store.state.userInfo,
+				createdList: [],
+				favoriteList: [],
+				listDetail: {}
 			};
+		},
+		components: {
+			LeftContent,
+			ListDeatil
 		},
 		created() {
 			this.getSubcount();
+			this.getMyPlaylist();
 		},
 		methods: {
+			//获取左侧统计数据
 			getSubcount() {
 				Api.getSubcount().then(data => {
 					if (data.data) {
 						this.subCount = data.data;
 					}
 				});
+			},
+			//获取我的歌单列表 创建&喜欢
+			getMyPlaylist() {
+				Api.getMyPlaylist({
+					data: {
+						uid: this.userInfo.account.id
+					}
+				}).then(data => {
+					if (data.data.playlist) {
+						let playlist = data.data.playlist;
+						playlist.forEach(item => {
+							if (item.creator.userId == this.userInfo.account.id) {
+								this.createdList.push(item);
+							} else {
+								this.favoriteList.push(item);
+							}
+						});
+					}
+				});
+			},
+
+			//获取歌单列表详情
+			getPlayListDetail(data) {
+				data.playlist.tracks.forEach(list => {
+					list.artistName = list.ar[0].name;
+					list.albumName = list.al.name;
+					list.dt = COMMONJS.MillisecondToDate(list.dt);
+				});
+				this.listDetail = data.playlist;
 			}
 		}
 	};
@@ -62,18 +95,8 @@
 			height: 100%;
 			> div {
 				box-sizing: border-box;
-				min-height: 100%;
+				height: 100%;
 				overflow: auto;
-			}
-			.left-content {
-				width: 240px;
-				padding: 40px 20px;
-				text-align: left;
-				border-right: 1px solid #eee;
-				li {
-					cursor: pointer;
-					margin-bottom: 10px;
-				}
 			}
 			.right-content {
 				width: 760px;
@@ -87,6 +110,20 @@
 						}
 					}
 				}
+			}
+		}
+	}
+	.ivu-collapse {
+		.ivu-collapse-item {
+			.ivu-collapse-header {
+				margin-left: -16px;
+				padding: 0;
+				i {
+					margin: 0;
+				}
+			}
+			.ivu-collapse-content {
+				padding: 0;
 			}
 		}
 	}

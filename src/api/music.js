@@ -18,6 +18,18 @@ const music = [
         method: 'GET'
     },
     {
+        //获取用户的歌单{创建的和喜欢的歌单}
+        name: 'getMyPlaylist',
+        url: '/music/user/playlist',
+        method: 'POST'
+    },
+    {
+        //获取歌单详情
+        name: 'getPlaylistDetail',
+        url: '/music/playlist/detail',
+        method: 'POST'
+    },
+    {
         //我的歌手
         name: 'myArtist',
         url: '/music/artist/sublist',

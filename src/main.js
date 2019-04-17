@@ -7,8 +7,11 @@ import '@/assets/css/common.less'
 import axios from 'axios'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import moment from 'moment' //导入文件
 
 Vue.config.productionTip = false
+Vue.prototype.$moment = moment //赋值使用
+moment.locale('zh-cn') //需要汉化
 Vue.prototype.axios = axios
 Vue.use(iView)
 

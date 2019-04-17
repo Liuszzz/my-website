@@ -76,13 +76,13 @@ video {
     vertical-align: baseline;
     background: transparent;
     outline-style: none;
-    font-size: 14px;
     /*FF*/
 }
 
 
 body {
     line-height: 1;
+    font-size: 14px;
 }
 
 a {
