@@ -4,14 +4,17 @@
 		<div class="content clear">
 			<router-view></router-view>
 		</div>
+		<MusicPlayer></MusicPlayer>
 	</div>
 </template>
 
 <script>
 	import MyHeader from '@/components/header';
+	import MusicPlayer from '@/components/musicPlayer';
 	export default {
 		components: {
-			MyHeader
+			MyHeader,
+			MusicPlayer
 		},
 		data() {
 			return {

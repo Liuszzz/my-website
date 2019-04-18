@@ -30,6 +30,12 @@ const music = [
         method: 'POST'
     },
     {
+        //获取音乐URL
+        name: 'getSongUrl',
+        url: '/music/song/url',
+        method: 'POST'
+    },
+    {
         //我的歌手
         name: 'myArtist',
         url: '/music/artist/sublist',

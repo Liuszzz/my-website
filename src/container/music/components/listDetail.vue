@@ -26,23 +26,19 @@
 			</div>
 		</div>
 		<div class="list-box">
-			<!-- <ul class="song-list-item">
-				<li v-for="list in listDetail.tracks">
-					{{list.name}}
-				</li>
-			</ul> -->
-
 			<Table stripe
 			       :columns="configs"
-			       :data="listDetail.tracks"></Table>
+			       :data="listDetail.tracks"
+			       @on-row-dblclick="toPlay"></Table>
 		</div>
 	</div>
 </template>
 <script>
+	import Api from '@/api';
 	export default {
 		props: {
 			listDetail: Object
-		}, 
+		},
 		data() {
 			return {
 				configs: [
@@ -68,6 +64,15 @@
 					}
 				]
 			};
+		},
+		methods: {
+			toPlay(item) {
+				this.axios.get('/music/song/url?id=' + item.id).then(resp => {
+					if (resp.data) {
+						this.$store.state.musicInfo = resp.data.data[0];
+					}
+				});
+			}
 		}
 	};
 </script>
@@ -104,5 +109,10 @@
 	.count {
 		padding: 0 40px;
 		line-height: 40px;
+	}
+	.list-box {
+		.ivu-table-row {
+			cursor: pointer;
+		}
 	}
 </style>
