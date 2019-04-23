@@ -9,13 +9,14 @@
 			<Panel name="createdPlaylistCount">
 				创建的歌单（{{subCount.createdPlaylistCount}}）
 				<ul slot="content">
-					<li class="playlist"
-					    v-for="cItem in createdList"
-					    :key="cItem.id"
-					    @click="getPlayListDetail(cItem)">
+					<li
+						class="playlist"
+						v-for="cItem in createdList"
+						:key="cItem.id"
+						@click="getPlayListDetail(cItem)"
+					>
 						<div class="clear">
-							<img class="list-cover fl"
-							     :src="cItem.coverImgUrl">
+							<img class="list-cover fl" :src="cItem.coverImgUrl">
 							<div class="list-intro">
 								<p>{{cItem.name}}</p>
 								<p>{{cItem.trackCount}}</p>
@@ -27,13 +28,14 @@
 			<Panel name="subPlaylistCount">
 				收藏的歌单（{{subCount.subPlaylistCount}}）
 				<ul slot="content">
-					<li class="playlist"
-					    v-for="fItem in favoriteList"
-					    :key="fItem.id"
-					    @click="getPlayListDetail(fItem)">
+					<li
+						class="playlist"
+						v-for="fItem in favoriteList"
+						:key="fItem.id"
+						@click="getPlayListDetail(fItem)"
+					>
 						<div class="clear">
-							<img class="list-cover fl"
-							     :src="fItem.coverImgUrl">
+							<img class="list-cover fl" :src="fItem.coverImgUrl">
 							<div class="list-intro">
 								<p>{{fItem.name}}</p>
 								<p>{{fItem.trackCount}}</p>
@@ -64,6 +66,9 @@
 					.then(resp => {
 						if (resp.data) {
 							setTimeout(loadMsg, 300);
+							resp.data.playlist.tracks.forEach(list => {
+								list.isPlaying = false; //初始化播放状态
+							});
 							this.$emit('playListDetail', resp.data);
 						}
 					});

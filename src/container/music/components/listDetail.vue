@@ -1,7 +1,6 @@
 <template>
 	<div class="list-detail">
-		<div class="playlist-desc clear"
-		     v-if="listDetail.creator">
+		<div class="playlist-desc clear" v-if="listDetail.creator">
 			<div class="cover-box fl">
 				<img :src="listDetail.coverImgUrl">
 			</div>
@@ -21,30 +20,52 @@
 				歌曲列表
 				<span>{{listDetail.trackCount}}首歌</span>
 			</div>
-			<div class="fr">
-				播放{{listDetail.playCount}}次
-			</div>
+			<div class="fr">播放{{listDetail.playCount}}次</div>
 		</div>
 		<div class="list-box">
-			<Table stripe
-			       :columns="configs"
-			       :data="listDetail.tracks"
-			       @on-row-dblclick="toPlay"></Table>
+			<Table stripe :columns="configs" :data="listDetail.tracks"></Table>
 		</div>
 	</div>
 </template>
 <script>
-	import Api from '@/api';
+	// import Api from '@/api';
 	export default {
 		props: {
 			listDetail: Object
 		},
 		data() {
 			return {
+				lastSong: {},
 				configs: [
 					{
 						type: 'index',
 						width: 60
+					},
+					{
+						title: ' ',
+						width: 60,
+						render: (h, params) => {
+							if (!params.row.isPlaying) {
+								return (
+									<Icon
+										class="play-btn"
+										type="ios-play-outline"
+										size="20"
+										onClick={() => {
+											this.toPlay(params.row);
+										}}
+									/>
+								);
+							} else {
+								return (
+									<Icon
+										class="play-btn"
+										type="ios-play"
+										size="20"
+									/>
+								);
+							}
+						}
 					},
 					{
 						title: '歌曲标题',
@@ -67,9 +88,14 @@
 		},
 		methods: {
 			toPlay(item) {
+				item.isPlaying = true;
+				if (this.lastSong.id) {
+					this.lastSong.isPlaying = false;
+				}
+				this.lastSong = item;
 				this.axios.get('/music/song/url?id=' + item.id).then(resp => {
 					if (resp.data) {
-						this.$store.state.musicInfo = resp.data.data[0];
+						this.$store.commit('changeMusicUrl', resp.data.data[0]);
 					}
 				});
 			}
@@ -109,10 +135,5 @@
 	.count {
 		padding: 0 40px;
 		line-height: 40px;
-	}
-	.list-box {
-		.ivu-table-row {
-			cursor: pointer;
-		}
 	}
 </style>

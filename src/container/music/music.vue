@@ -1,15 +1,17 @@
 <template>
 	<div class="music">
 		<div class="content clear">
-			<LeftContent :subCount="subCount"
-			             :favoriteList="favoriteList"
-			             :createdList="createdList"
-			             @playListDetail="getPlayListDetail">
-			</LeftContent>
+			<LeftContent
+				:subCount="subCount"
+				:favoriteList="favoriteList"
+				:createdList="createdList"
+				@playListDetail="getPlayListDetail"
+			></LeftContent>
 			<div class="right-content fr">
-				<ListDeatil :listDetail="listDetail">
-
-				</ListDeatil>
+				<ListDetail :listDetail="listDetail"></ListDetail>
+				<ArtistDetail></ArtistDetail>
+				<VideoDetail></VideoDetail>
+				<DjDetail></DjDetail>
 			</div>
 		</div>
 		<div class="music-bar"></div>
@@ -20,14 +22,17 @@
 	import Api from '@/api';
 	import COMMONJS from '@/assets/js/common.js';
 	import LeftContent from './components/leftContent.vue';
-	import ListDeatil from './components/listDetail.vue';
+	import ListDetail from './components/listDetail.vue';
+	import artistDetail from './components/artistDetail.vue';
+	import videoDetail from './components/videoDetail.vue';
+	import djDetail from './components/djDetail.vue';
+	import { mapState } from 'vuex';
 
 	export default {
 		data() {
 			return {
 				recSongList: [],
 				subCount: {},
-				userInfo: this.$store.state.userInfo,
 				createdList: [],
 				favoriteList: [],
 				listDetail: {}
@@ -35,8 +40,14 @@
 		},
 		components: {
 			LeftContent,
-			ListDeatil
+			ListDetail,
+			artistDetail,
+			videoDetail,
+			djDetail
 		},
+		computed: mapState({
+			userInfo: state => state.userInfo
+		}),
 		created() {
 			this.getSubcount();
 			this.getMyPlaylist();
