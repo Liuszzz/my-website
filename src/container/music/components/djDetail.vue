@@ -1,5 +1,5 @@
-<template>
-    
+<template>    
+    <div>djDetail</div>
 </template>
 <script>
 export default {

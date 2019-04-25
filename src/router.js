@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
+import Search from './container/search/search.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     mode: 'hash',
@@ -16,6 +17,15 @@ export default new Router({
             meta: {
                 title: 'home',
                 requireAuth: false
+            }
+        },
+        {
+            path: '/search',
+            name: 'search',
+            component: Search,
+            meta: {
+                title: 'search',
+                requireAuth: true
             }
         },
         {
@@ -42,4 +52,4 @@ export default new Router({
             ]
         }
     ]
-})
+});

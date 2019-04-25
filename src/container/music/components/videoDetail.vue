@@ -1,5 +1,5 @@
 <template>
-    
+    <div>videoDetail</div>
 </template>
 <script>
 export default {

@@ -28,7 +28,7 @@
 	</div>
 </template>
 <script>
-	// import Api from '@/api';
+	import Api from '@/api';
 	export default {
 		props: {
 			listDetail: Object
@@ -44,28 +44,28 @@
 					{
 						title: ' ',
 						width: 60,
-						render: (h, params) => {
-							if (!params.row.isPlaying) {
-								return (
-									<Icon
-										class="play-btn"
-										type="ios-play-outline"
-										size="20"
-										onClick={() => {
-											this.toPlay(params.row);
-										}}
-									/>
-								);
-							} else {
-								return (
-									<Icon
-										class="play-btn"
-										type="ios-play"
-										size="20"
-									/>
-								);
-							}
-						}
+						// render: (h, params) => {
+						// 	if (!params.row.isPlaying) {
+						// 		return (
+						// 			<Icon
+						// 				class="play-btn"
+						// 				type="ios-play-outline"
+						// 				size="20"
+						// 				onClick={() => {
+						// 					this.toPlay(params.row);
+						// 				}}
+						// 			/>
+						// 		);
+						// 	} else {
+						// 		return (
+						// 			<Icon
+						// 				class="play-btn"
+						// 				type="ios-play"
+						// 				size="20"
+						// 			/>
+						// 		);
+						// 	}
+						// }
 					},
 					{
 						title: '歌曲标题',

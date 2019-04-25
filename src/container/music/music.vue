@@ -9,9 +9,9 @@
 			></LeftContent>
 			<div class="right-content fr">
 				<ListDetail :listDetail="listDetail"></ListDetail>
-				<ArtistDetail></ArtistDetail>
+				<!-- <ArtistDetail></ArtistDetail>
 				<VideoDetail></VideoDetail>
-				<DjDetail></DjDetail>
+				<DjDetail></DjDetail> -->
 			</div>
 		</div>
 		<div class="music-bar"></div>
@@ -23,9 +23,9 @@
 	import COMMONJS from '@/assets/js/common.js';
 	import LeftContent from './components/leftContent.vue';
 	import ListDetail from './components/listDetail.vue';
-	import artistDetail from './components/artistDetail.vue';
-	import videoDetail from './components/videoDetail.vue';
-	import djDetail from './components/djDetail.vue';
+	import ArtistDetail from './components/artistDetail.vue';
+	import VideoDetail from './components/videoDetail.vue';
+	import DjDetail from './components/djDetail.vue';
 	import { mapState } from 'vuex';
 
 	export default {
@@ -41,9 +41,9 @@
 		components: {
 			LeftContent,
 			ListDetail,
-			artistDetail,
-			videoDetail,
-			djDetail
+			ArtistDetail,
+			VideoDetail,
+			DjDetail
 		},
 		computed: mapState({
 			userInfo: state => state.userInfo
