@@ -1,7 +1,7 @@
 <template>
 	<div class="main">
 		<MyHeader :userInfo="userInfo"></MyHeader>
-		<div class="content clear">
+		<div class="content">
 			<router-view></router-view>
 		</div>
 		<MusicPlayer></MusicPlayer>

@@ -20,15 +20,6 @@ export default new Router({
             }
         },
         {
-            path: '/search',
-            name: 'search',
-            component: Search,
-            meta: {
-                title: 'search',
-                requireAuth: true
-            }
-        },
-        {
             path: '/main',
             name: 'main',
             // route level code-splitting
@@ -46,6 +37,15 @@ export default new Router({
                     component: () => import('./container/music/music.vue'),
                     meta: {
                         title: 'music',
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: 'search',
+                    name: 'search',
+                    component: Search,
+                    meta: {
+                        title: 'search',
                         requireAuth: true
                     }
                 }

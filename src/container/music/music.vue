@@ -14,7 +14,7 @@
 				<DjDetail></DjDetail> -->
 			</div>
 		</div>
-		<div class="music-bar"></div>
+		<div class="music-bar" ></div>
 	</div>
 </template>
 
@@ -137,5 +137,8 @@
 				padding: 0;
 			}
 		}
+	}
+	.music-player {
+		display: none;
 	}
 </style>

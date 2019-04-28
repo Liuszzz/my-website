@@ -52,7 +52,13 @@ const music = [
         name: 'personal_fm',
         url: '/music/personal_fm',
         method: 'GET'
+    },
+    {
+        //搜索
+        name: 'search',
+        url: '/music/search',
+        method: 'POST'
     }
-]
+];
 
-export default music
+export default music;
